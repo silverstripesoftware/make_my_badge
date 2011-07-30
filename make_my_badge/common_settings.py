@@ -1,3 +1,14 @@
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3', 
+        'NAME': 'make_my_badge.db',                      
+        'USER': '',                      
+        'PASSWORD': '',                  
+        'HOST': '',                      
+        'PORT': '',                      
+    }
+}
+
 ADMINS = (
     ('Siddharta', 'siddharta@silverstripesoftware.com'),
     ('Kausikram', 'kausikram@silverstripesoftware.com'),
@@ -100,11 +111,8 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.admin',
     'south',
-    # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
 )
 
 # A sample logging configuration. The only tangible logging
