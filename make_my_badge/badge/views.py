@@ -7,6 +7,10 @@ from django.http import HttpResponse
 from badge.models import Item, Event
 from badge.tasks import generate_badge
 
+def event_list(request):
+    event_list = Event.objects.filter(user=request.user)
+    return object_list(request, event_list, template_name="event_list.html", template_object_name="event")
+
 def item_list(request,event_id):
     item_list = Item.objects.filter(event__id=int(event_id))
     return object_list(request, item_list, template_name="item_list.html", template_object_name="item")

@@ -8,9 +8,12 @@
         {% block script %}{% endblock %}
     </head>
     <body>
-        <div class="menu">
-        </div>
-        <div class="heading"><h1>{% block heading %}{% endblock %}</h1></div>
-        <div class="content">{% block content %}{% endblock %}</div>
+		<div id="main-container">
+			<div class="menu">
+				<a href="/">Home</a> | <a href="/badge/">Site</a>
+			</div>
+			<div class="heading"><h1>{% block heading %}{% endblock %}</h1></div>
+			<div class="content">{% block content %}{% endblock %}</div>
+		</div>
     </body>
 </html>

@@ -2,7 +2,7 @@
 
 {% block title %}Items to generate{% endblock %}
 
-{% block heading %}List of Items{% endblock %}
+{% block heading %}Badge Items{% endblock %}
 
 {% block script %}
 <script type="text/javascript">
@@ -33,7 +33,7 @@
 {% block content %}        
 <ul>
     {% for item in item_list %}
-    <li>{{item.name}}</li>
+    <li>{{item.name}} {% if item.generated_image %}<a href="{{ item.generated_image.url }}">Badge</a>{% else %}(Not yet generated){% endif %}</li>
 {% endfor %}
 </ul>
 <div class="information_area">
