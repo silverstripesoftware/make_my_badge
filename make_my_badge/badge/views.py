@@ -1,11 +1,12 @@
 import simplejson
+import zipfile
 from django.template.response import TemplateResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.list_detail import object_list
 from django.http import HttpResponse
 
 from badge.models import Item, Event
-from badge.tasks import generate_badge
+from badge.tasks import generate_badge, zip_file
 
 def event_list(request):
     event_list = Event.objects.filter(user=request.user)
@@ -33,7 +34,8 @@ def are_badges_ready(request,event_id):
     ready = True
     if item_count > 0:
         ready = False
-
+    if ready:
+        zip_file.delay(e)
     response_obj = {"status":{"ready":ready}}
     r = HttpResponse()
     r.content = simplejson.dumps(response_obj)
@@ -42,3 +44,14 @@ def are_badges_ready(request,event_id):
     return r
 
 
+def is_zip_ready(request, event_id):
+    e = Event.objects.get(id=int(event_id))
+    ready = False
+    if e.zipped_content:
+        ready = True
+    response_obj = {"status":{"ready":ready}}
+    r = HttpResponse()
+    r.content = simplejson.dumps(response_obj)
+    r["Content-Type"] = "application/json"
+    r.status_code = 200
+    return r
