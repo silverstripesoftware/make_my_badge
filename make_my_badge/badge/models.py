@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 class Event(models.Model):
     name = models.CharField(max_length=128)
     user = models.ForeignKey(User)
+    zipped_content = models.FileField(null=True,blank=True,upload_to="zipped_content")
 
     def __unicode__(self):
         return "Event: " + self.name
