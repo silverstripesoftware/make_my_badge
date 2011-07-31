@@ -6,11 +6,30 @@
 
 {% block script %}
 <script type="text/javascript">
+    function wait_for_badge_complete(){
+            jQuery.ajax({
+                type:"GET",
+                dataType:"json",
+                url:"/badge/event/{{item_list.0.event.id}}/are_badges_ready/",
+                success:function(data){
+                    if(data["status"]["ready"]){
+                        jQuery(".loading_1").toggle();
+                        jQuery(".loading_2").toggle();
+                    } else {
+                        setTimeout(function(){
+                            wait_for_badge_complete()
+                        },2000);
+                    }
+                }
+            });
+    }
+
     function init(){
         jQuery(".loading_1").toggle();
+        jQuery(".loading_2").toggle();
+        jQuery(".complete").toggle();
         jQuery("#make_badge_button").click(function(){
             var button = jQuery(this);
-            console.log(button);
             jQuery.ajax({
                 type:"POST",
                 dataType:"json",
@@ -19,6 +38,7 @@
                 success:function(data){
                     jQuery(".loading_1").toggle();
                     button.toggle();
+                    wait_for_badge_complete();
                 }
             });
         });
@@ -37,8 +57,19 @@
 {% endfor %}
 </ul>
 <div class="information_area">
+    <div class="complete success">
+        <img src="/static/images/loading.gif" />
+        <br />
+        <span>Success!!</span>
+    </div>
+    <div class="loading_2 notice">
+        <img src="/static/images/loading.gif" />
+        <br />
+        <span>Badge Generation Complete. Zipping them all up.</span>
+    </div>
     <div class="loading_1">
         <img src="/static/images/loading.gif" />
+        <br />
         <span>Hard Core Badge Generation in Progress</span>
     </div>
     <button id="make_badge_button">Generate Badges</button>
