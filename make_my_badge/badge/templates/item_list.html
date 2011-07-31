@@ -1,0 +1,14 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Make My Badge</title>
+    </head>
+    <body>
+        <h1>List of Items</h1>
+    <ul>
+        {% for item in item_list %}
+        <li>{{item.name}}</li>
+        {% endfor %}
+    </ul>
+    </body>
+</html>

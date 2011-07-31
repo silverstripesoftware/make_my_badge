@@ -5,7 +5,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', 'badge.views.index', name='index'),
-#    url(r'^make_my_badge/', include('make_my_badge.foo.urls')),
+    url(r'^badge/', include('make_my_badge.badge.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
 )
