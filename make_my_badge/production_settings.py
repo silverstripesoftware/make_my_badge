@@ -10,3 +10,4 @@ import os
 
 MEDIA_ROOT = os.path.join(config["core"]["data_directory"], "media")
 STATIC_ROOT = os.path.join(config["core"]["data_directory"], "static")
+LOGIN_REDIRECT_URL = "/badge/"
