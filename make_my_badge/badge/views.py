@@ -3,7 +3,7 @@ from django.template.response import TemplateResponse
 from django.views.generic.list_detail import object_list
 from django.http import HttpResponse
 
-from badge.models import Item
+from badge.models import Item, Event
 from badge.tasks import generate_badge
 
 def index(request):
@@ -19,8 +19,24 @@ def generate_badges(request,event_id):
     for item in item_list:
         generate_badge.delay(item)
     r = HttpResponse()
-    response_obj = {"statu":{"message":"ok"}}
+    response_obj = {"status":{"message":"ok"}}
     r.content = simplejson.dumps(response_obj)
     r["Content-Type"] = "application/json"
     r.status_code = 200
     return r
+
+def are_badges_ready(request,event_id):
+    e = Event.objects.get(id=int(event_id))
+    item_count = Item.objects.filter(event=e,generated_image="").count()
+    ready = True
+    if item_count > 0:
+        ready = False
+
+    response_obj = {"status":{"ready":ready}}
+    r = HttpResponse()
+    r.content = simplejson.dumps(response_obj)
+    r["Content-Type"] = "application/json"
+    r.status_code = 200
+    return r
+
+
