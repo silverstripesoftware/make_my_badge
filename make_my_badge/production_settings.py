@@ -7,3 +7,4 @@ DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 MEDIA_ROOT = config["core"]["data_directory"]
+STATIC_ROOT = "../static"
