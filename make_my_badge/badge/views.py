@@ -1,16 +1,33 @@
 import simplejson
 import zipfile
 from django.template.response import TemplateResponse
+from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.list_detail import object_list
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 
 from badge.models import Item, Event
+from badge.forms import EventSubmissionForm
 from badge.tasks import generate_badge, zip_file
 
 def event_list(request):
     event_list = Event.objects.filter(user=request.user)
     return object_list(request, event_list, template_name="event_list.html", template_object_name="event")
+
+def add_event(request):
+    if request.method == 'POST':
+        form = EventSubmissionForm(request.POST, request.FILES)
+        if form.is_valid():
+            f = form.save(commit=False)
+            f.user = User.objects.all()[0]
+            f.save()
+            return HttpResponseRedirect('/badge/') # Redirect after POST
+    else:
+        form = EventSubmissionForm()
+
+    return TemplateResponse(request,'new_event.html', {
+        'form': form,
+    })
 
 def item_list(request,event_id):
     item_list = Item.objects.filter(event__id=int(event_id))
