@@ -42,7 +42,7 @@ class BadgeImage(object):
         self.draw = ImageDraw.Draw(self.img)
         self.width = int(self.img.size[0]*0.9)
         self.name_color =  name_color if name_color else NAME_COLOR
-        self.company_color =  name_color if company_color else COMPANY_COLOR
+        self.company_color =  company_color if company_color else COMPANY_COLOR
 
     def drawAlignedText(self, pos, text, (font, color), xtransform, ytransform):
         width,height = font.getsize(text)
