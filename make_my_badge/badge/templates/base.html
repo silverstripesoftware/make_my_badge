@@ -1,0 +1,14 @@
+<doctype html>
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+		<link rel="stylesheet" href="{{ STATIC_URL }}blueprint/screen.css" type="text/css" media="screen, projection">
+        <!--[if IE]><link rel="stylesheet" href="{{ STATIC_URL }}blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    </head>
+    <body>
+        <div class="menu">
+        </div>
+        <div class="heading"><h1>{% block heading %}{% endblock %}</h1></div>
+        <div class="content">{% block content %}{% endblock %}</div>
+    </body>
+</html>
