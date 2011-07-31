@@ -42,6 +42,12 @@ class BadgeImage(object):
         self.draw = ImageDraw.Draw(self.img)
         self.width = int(self.img.size[0]*0.9)
 
+    def getFont(self, size):
+        try:
+            font = ImageFont.truetype("Trebucbd.ttf", size*300/72)
+        except IOError:
+            return ImageFont.load_default()
+        
     def drawAlignedText(self, pos, text, (font, color), xtransform, ytransform):
         width,height = font.getsize(text)
         xpos = xtransform(pos[0], width)
@@ -53,11 +59,10 @@ class BadgeImage(object):
 
     def getFitSize(self, startsize, text):
         size = startsize
-        font = ImageFont.truetype("Trebucbd.ttf", size*300/72)
         textwidth, textheight = font.getsize(text)
         while textwidth > self.width:
             size -= 1
-            font = ImageFont.truetype("Trebucbd.ttf", size*300/72)
+            font = self.getFont(size)
             textwidth, textheight = font.getsize(text)
         return size
 
@@ -70,22 +75,22 @@ class BadgeImage(object):
         else:
             firstname, rest = (name, "")
         if rest != "":
-            personFont = ImageFont.truetype("Trebucbd.ttf", self.getFitSize(45, firstname)*300/72)
+            personFont = self.getFont(self.getFitSize(45, firstname))
             self.drawCenteredText(line1pos, firstname, (personFont, NAME_COLOR))
-            personFont = ImageFont.truetype("Trebucbd.ttf", self.getFitSize(45, rest)*300/72)
+            personFont = self.getFont(self.getFitSize(45, rest))
             self.drawCenteredText(line2pos, rest, (personFont, NAME_COLOR))
         else:
-            personFont = ImageFont.truetype("Trebucbd.ttf", self.getFitSize(45, name)*300/72)
+            personFont = self.getFont(self.getFitSize(45, name))
             self.drawCenteredText(linepos, name, (personFont, NAME_COLOR))
 
     def drawCompany(self, name):
         pos = (self.width/2, 500)
-        font = ImageFont.truetype("Trebucbd.ttf", self.getFitSize(26, name)*300/72)
+        font = self.getFont(self.getFitSize(26, name))
         self.drawCenteredText(pos, name, (font, COMPANY_COLOR))
 
     def drawId(self, id):
         pos = (50, 50)
-        font = ImageFont.truetype("Trebucbd.ttf", 8*300/72)
+        font = self.getFont(8)
         self.drawCenteredText(pos, id, (font, ID_COLOR))
 
 
