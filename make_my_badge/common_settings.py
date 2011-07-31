@@ -137,9 +137,3 @@ LOGGING = {
 
 import djcelery
 djcelery.setup_loader()
-
-BROKER_HOST = "localhost"
-BROKER_PORT = 5672
-BROKER_USER = "admin"
-BROKER_PASSWORD = "admin"
-BROKER_VHOST = "make_my_badge"
