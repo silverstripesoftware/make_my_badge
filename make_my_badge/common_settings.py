@@ -37,7 +37,7 @@ USE_L10N = True
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
 
-MEDIA_ROOT = os.path.join(os.path.dirname(os.path.abspath(f)),'upload')
+MEDIA_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)),'upload')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
