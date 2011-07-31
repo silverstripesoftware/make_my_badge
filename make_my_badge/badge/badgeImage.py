@@ -81,44 +81,23 @@ class BadgeImage(object):
         else:
             firstname, rest = (name, "")
         if rest != "":
-<<<<<<< HEAD
             personFont = self.getFont(self.getFitSize(45, firstname))
-            self.drawCenteredText(line1pos, firstname, (personFont, NAME_COLOR))
-            personFont = self.getFont(self.getFitSize(45, rest))
-            self.drawCenteredText(line2pos, rest, (personFont, NAME_COLOR))
-        else:
-            personFont = self.getFont(self.getFitSize(45, name))
-            self.drawCenteredText(linepos, name, (personFont, NAME_COLOR))
-
-    def drawCompany(self, name):
-        pos = (self.width/2, 500)
-        font = self.getFont(self.getFitSize(26, name))
-        self.drawCenteredText(pos, name, (font, COMPANY_COLOR))
-
-    def drawId(self, id):
-        pos = (50, 50)
-        font = self.getFont(8)
-        self.drawCenteredText(pos, id, (font, ID_COLOR))
-=======
-            personFont = ImageFont.truetype("Trebucbd.ttf", self.getFitSize(45, firstname)*300/72)
             self.drawCenteredText(line1pos, firstname, (personFont, self.name_color))
-            personFont = ImageFont.truetype("Trebucbd.ttf", self.getFitSize(45, rest)*300/72)
+            personFont = self.getFont(self.getFitSize(45, rest))
             self.drawCenteredText(line2pos, rest, (personFont, self.name_color))
         else:
-            personFont = ImageFont.truetype("Trebucbd.ttf", self.getFitSize(45, name)*300/72)
+            personFont = self.getFont(self.getFitSize(45, name))
             self.drawCenteredText(linepos, name, (personFont, self.name_color))
 
     def drawCompany(self, name):
         pos = (self.width/2, 500)
-        font = ImageFont.truetype("Trebucbd.ttf", self.getFitSize(26, name)*300/72)
+        font = self.getFont(self.getFitSize(26, name))
         self.drawCenteredText(pos, name, (font, self.company_color))
 
     def drawId(self, id):
         pos = (50, 50)
-        font = ImageFont.truetype("Trebucbd.ttf", 8*300/72)
+        font = self.getFont(8)
         self.drawCenteredText(pos, id, (font, self.name_color))
->>>>>>> 212d6e2de8435240139f2cf7f701ace1dffc084a
-
 
     def save(self, filename, doubleSided=False):
         if not doubleSided:
