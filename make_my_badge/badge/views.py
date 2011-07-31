@@ -6,10 +6,6 @@ from django.http import HttpResponse
 from badge.models import Item, Event
 from badge.tasks import generate_badge
 
-def index(request):
-    return TemplateResponse(request, "index.html", {})
-
-
 def item_list(request,event_id):
     item_list = Item.objects.filter(event__id=int(event_id))
     return object_list(request, item_list, template_name="item_list.html", template_object_name="item")
