@@ -3,6 +3,7 @@ import StringIO
 import zipfile
 
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.conf import settings
 
 from celery.decorators import task
 from badge.models import BadgeTemplate
@@ -12,7 +13,7 @@ from badge.badgeImage import BadgeImage
 def generate_badge(item):
     event = item.event
     badge_template = BadgeTemplate.objects.filter(event=event)[0]
-    badge_img = BadgeImage(badge_template.template_image.path)
+    badge_img = BadgeImage(badge_template.template_image.path, settings.STATIC_ROOT)
     badge_img.drawPerson(item.name)
     badge_img.drawCompany("Silver Stripe Software")
     badge_img.drawId(str(item.id))

@@ -37,14 +37,17 @@ FOLD_COLOR = "#000000"
 
 
 class BadgeImage(object):
-    def __init__(self, filename):
+    def __init__(self, filename, font_path):
         self.img = Image.open(filename)
         self.draw = ImageDraw.Draw(self.img)
         self.width = int(self.img.size[0]*0.9)
+        self.font_path = font_path
 
     def getFont(self, size):
         try:
-            font = ImageFont.truetype("Trebucbd.ttf", size*300/72)
+            font_path = os.path.join(self.font_path, "Fontin-Bold.otf")
+            font = ImageFont.truetype(font_path, size*300/72)
+            return font
         except IOError:
             return ImageFont.load_default()
         
