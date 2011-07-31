@@ -59,6 +59,7 @@ class BadgeImage(object):
 
     def getFitSize(self, startsize, text):
         size = startsize
+        font = self.getFont(size)
         textwidth, textheight = font.getsize(text)
         while textwidth > self.width:
             size -= 1
