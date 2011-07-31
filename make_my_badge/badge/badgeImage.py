@@ -37,10 +37,12 @@ FOLD_COLOR = "#000000"
 
 
 class BadgeImage(object):
-    def __init__(self, filename, font_path):
+    def __init__(self, filename, font_path, name_color=None, company_color=None):
         self.img = Image.open(filename)
         self.draw = ImageDraw.Draw(self.img)
         self.width = int(self.img.size[0]*0.9)
+        self.name_color =  name_color if name_color else NAME_COLOR
+        self.company_color =  name_color if company_color else COMPANY_COLOR
         self.font_path = font_path
 
     def getFont(self, size):
@@ -79,6 +81,7 @@ class BadgeImage(object):
         else:
             firstname, rest = (name, "")
         if rest != "":
+<<<<<<< HEAD
             personFont = self.getFont(self.getFitSize(45, firstname))
             self.drawCenteredText(line1pos, firstname, (personFont, NAME_COLOR))
             personFont = self.getFont(self.getFitSize(45, rest))
@@ -96,6 +99,25 @@ class BadgeImage(object):
         pos = (50, 50)
         font = self.getFont(8)
         self.drawCenteredText(pos, id, (font, ID_COLOR))
+=======
+            personFont = ImageFont.truetype("Trebucbd.ttf", self.getFitSize(45, firstname)*300/72)
+            self.drawCenteredText(line1pos, firstname, (personFont, self.name_color))
+            personFont = ImageFont.truetype("Trebucbd.ttf", self.getFitSize(45, rest)*300/72)
+            self.drawCenteredText(line2pos, rest, (personFont, self.name_color))
+        else:
+            personFont = ImageFont.truetype("Trebucbd.ttf", self.getFitSize(45, name)*300/72)
+            self.drawCenteredText(linepos, name, (personFont, self.name_color))
+
+    def drawCompany(self, name):
+        pos = (self.width/2, 500)
+        font = ImageFont.truetype("Trebucbd.ttf", self.getFitSize(26, name)*300/72)
+        self.drawCenteredText(pos, name, (font, self.company_color))
+
+    def drawId(self, id):
+        pos = (50, 50)
+        font = ImageFont.truetype("Trebucbd.ttf", 8*300/72)
+        self.drawCenteredText(pos, id, (font, self.name_color))
+>>>>>>> 212d6e2de8435240139f2cf7f701ace1dffc084a
 
 
     def save(self, filename, doubleSided=False):

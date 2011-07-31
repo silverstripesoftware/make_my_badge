@@ -12,10 +12,9 @@ from badge.badgeImage import BadgeImage
 @task()
 def generate_badge(item):
     event = item.event
-    badge_template = BadgeTemplate.objects.filter(event=event)[0]
-    badge_img = BadgeImage(badge_template.template_image.path, settings.STATIC_ROOT)
+    badge_img = BadgeImage(event.template_image.path, settings.STATIC_ROOT, name_color=event.name_color, company_color=event.company_color)
     badge_img.drawPerson(item.name)
-    badge_img.drawCompany("Silver Stripe Software")
+    badge_img.drawCompany(item.properties)
     badge_img.drawId(str(item.id))
     badge_io = StringIO.StringIO()
     badge_img.img.save(badge_io,"png")

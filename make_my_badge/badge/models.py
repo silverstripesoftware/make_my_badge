@@ -5,6 +5,9 @@ from django.contrib.auth.models import User
 class Event(models.Model):
     name = models.CharField(max_length=128)
     user = models.ForeignKey(User)
+    template_image = models.ImageField(upload_to="badge_template", null=True)
+    company_color = models.CharField(max_length=10)
+    name_color = models.CharField(max_length=10)
     zipped_content = models.FileField(null=True,blank=True,upload_to="zipped_content")
 
     def __unicode__(self):
