@@ -24,4 +24,4 @@ class Item(models.Model):
     event = models.ForeignKey(Event, null=True)
 
     def __unicode__(self):
-        return self.name
+        return self.event.name + ": " + self.name
