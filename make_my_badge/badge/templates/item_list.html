@@ -4,10 +4,43 @@
 
 {% block heading %}List of Items{% endblock %}
 
+{% block script %}
+<script type="text/javascript">
+    function init(){
+        jQuery(".loading_1").toggle();
+        jQuery("#make_badge_button").click(function(){
+            var button = jQuery(this);
+            console.log(button);
+            jQuery.ajax({
+                type:"POST",
+                dataType:"json",
+                data:{},
+                url:"/badge/event/{{item_list.0.event.id}}/generate/",
+                success:function(data){
+                    jQuery(".loading_1").toggle();
+                    button.toggle();
+                }
+            });
+        });
+    }
+    jQuery("document").ready(function(){
+        init();
+    })
+
+</script>
+{% endblock %}
+
 {% block content %}        
 <ul>
     {% for item in item_list %}
     <li>{{item.name}}</li>
 {% endfor %}
 </ul>
+<div class="information_area">
+    <div class="loading_1">
+        <img src="/static/images/loading.gif" />
+        <span>Hard Core Badge Generation in Progress</span>
+    </div>
+    <button id="make_badge_button">Generate Badges</button>
+</div>
 {% endblock %}

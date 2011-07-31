@@ -4,6 +4,8 @@
         <title>{% block title %}{% endblock %}</title>
 		<link rel="stylesheet" href="{{ STATIC_URL }}blueprint/screen.css" type="text/css" media="screen, projection">
         <!--[if IE]><link rel="stylesheet" href="{{ STATIC_URL }}blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+        {% block script %}{% endblock %}
     </head>
     <body>
         <div class="menu">

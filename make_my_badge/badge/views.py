@@ -1,5 +1,6 @@
 import simplejson
 from django.template.response import TemplateResponse
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.list_detail import object_list
 from django.http import HttpResponse
 
@@ -10,6 +11,7 @@ def item_list(request,event_id):
     item_list = Item.objects.filter(event__id=int(event_id))
     return object_list(request, item_list, template_name="item_list.html", template_object_name="item")
 
+@csrf_exempt
 def generate_badges(request,event_id):
     item_list = Item.objects.filter(event__id=int(event_id))
     for item in item_list:
